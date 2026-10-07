@@ -1,66 +1,42 @@
-// enum LayerTypes {
-//   IMAGE = "image",
-//   SVG = "svg",
-//   TEXT = "text",
-//   SHAPE = "shape",
-//   PATH = "path",
-// }
+import type { CanvasAPI } from "@/hooks/use-canvas";
 
-import { create } from "zustand";
+export type LayerType = "image" | "text" | "shape";
 
-// type ImageLayer = {
-//   type: LayerTypes.IMAGE;
-//   file: Blob;
-//   crop: [number, number, number, number];
-//   rotaition: number;
-//   filter: string;
-//   opacity: number;
-// };
-
-// type SvgLayer = {
-//   type: LayerTypes.SVG;
-//   code : string;
-//   crop: [number, number, number, number];
-//   rotaition: number;
-//   filter: string;
-//   opacity: number;
-// };
-
-// type PathLayer = {
-//   type: LayerTypes.PATH;
-//   code: string;
-//   crop: [number, number, number, number];
-//   rotaition: number;
-//   filter: string;
-//   opacity: number;
-// };
-
-type LayersType = {
-  fabricState: string;
+export type Layer = {
+  id: string;
+  name: string;
+  type: LayerType;
+  visible: boolean;
+  active: boolean;
 };
 
-type ImportedImageType = {
+export type ImportedImageType = {
   name: string;
   file: Blob;
   id: string;
 };
 
-type ImportedSvgType = {
+export type ImportedSvgType = {
   name: string;
   code: string;
   id: string;
 };
-type ImportedFileType = ImportedImageType | ImportedSvgType;
 
-type StateType = {
-  layers: Layers;
+export type ImportedFileType = ImportedImageType | ImportedSvgType;
+
+export type StateType = {
+  api: CanvasAPI | null;
+  layers: Layer[];
+  activeLayerId: string | null;
+  history: string[];
+  historyIndex: number;
+  canUndo: boolean;
+  canRedo: boolean;
   imports: ImportedFileType[];
-};
-
-export {
-  ImportedImageType,
-  ImportedSvgType,
-  LayersType,
-  StateType,
-  ImportedFileType,
+  setApi: (api: CanvasAPI | null) => void;
+  setLayers: (layers: Layer[]) => void;
+  setActiveLayerId: (id: string | null) => void;
+  setHistory: (history: string[], historyIndex: number) => void;
+  importFile: (file: ImportedFileType) => void;
+  removeFile: (id: string) => void;
 };

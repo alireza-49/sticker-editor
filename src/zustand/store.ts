@@ -1,22 +1,26 @@
 import { create } from "zustand";
-import { ImportedFileType, StateType } from "./store.types";
+import type { StateType } from "./store.types";
 
-export const useStore = create<StateType>()((set) => ({
-  layers: {
-    fabricStateL: "",
-  },
+export const useCanvasStore = create<StateType>()((set) => ({
+  api: null,
+  layers: [],
+  activeLayerId: null,
+  history: [],
+  historyIndex: -1,
+  canUndo: false,
+  canRedo: false,
   imports: [],
+  setApi: (api) => set({ api }),
+  setLayers: (layers) => set({ layers }),
+  setActiveLayerId: (activeLayerId) => set({ activeLayerId }),
+  setHistory: (history, historyIndex) =>
+    set({
+      history,
+      historyIndex,
+      canUndo: historyIndex > 0,
+      canRedo: historyIndex < history.length - 1,
+    }),
+  importFile: (file) => set((state) => ({ imports: [...state.imports, file] })),
+  removeFile: (id) =>
+    set((state) => ({ imports: state.imports.filter((file) => file.id !== id) })),
 }));
-
-export const resetStore = () => useStore.setState(useStore.getInitialState());
-
-export const updateLayersStore = (newState: string) =>
-  useStore.setState({ layers: { fabricState: newState } });
-
-export const importFile = (file: ImportedFileType) =>
-  useStore.setState((state) => ({ imports: [...state.imports, file] }));
-
-export const removeFile = (id: string) =>
-  useStore.setState((state) => ({
-    imports: state.imports.filter((file) => file.id !== id),
-  }));

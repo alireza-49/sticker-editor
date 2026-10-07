@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Sidebar as ShadSideBar,
   SidebarContent,
@@ -19,6 +20,7 @@ import {
   TextIcon,
 } from "lucide-react";
 import Layers from "./layers";
+import FiltersMenu from "./filters";
 
 const Options: { icon: LucideIcon; title: string }[] = [
   { icon: CropIcon, title: "Crop/Resize" },
@@ -30,6 +32,8 @@ const Options: { icon: LucideIcon; title: string }[] = [
 ];
 
 const SideBar = () => {
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
   return (
     <ShadSideBar
       variant='floating'
@@ -41,7 +45,13 @@ const SideBar = () => {
             <SidebarMenu>
               {Options.map((option, index) => (
                 <SidebarMenuItem key={index}>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton
+                    onClick={
+                      option.title === "Filters/Effects"
+                        ? () => setFiltersOpen(true)
+                        : undefined
+                    }
+                  >
                     {<option.icon />}
                     <span>{option.title}</span>
                   </SidebarMenuButton>
@@ -57,6 +67,7 @@ const SideBar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <FiltersMenu open={filtersOpen} onOpenChange={setFiltersOpen} />
     </ShadSideBar>
   );
 };
