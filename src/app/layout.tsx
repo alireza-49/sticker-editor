@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, DM_Sans, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import SideBar from "@/components/sidebar";
 const outfitHeading = Outfit({
   subsets: ["latin"],
   variable: "--font-heading",
@@ -40,13 +42,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         outfitHeading.variable,
       )}
     >
-      <body className='min-h-full'>
+      <body className='min-h-full h-dvh bg-blue-200'>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
           disableTransitionOnChange
         >
-          {children}
+          <SidebarProvider>
+            <SideBar />
+            <SidebarInset>{children}</SidebarInset>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

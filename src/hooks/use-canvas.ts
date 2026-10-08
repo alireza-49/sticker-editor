@@ -61,8 +61,18 @@ export const CANVAS_FILTERS: CanvasFilterDefinition[] = [
     Filter: filters.HueRotation,
     defaults: { rotation: 0.5 },
   },
-  { name: "blur", label: "Blur", Filter: filters.Blur, defaults: { blur: 0.4 } },
-  { name: "noise", label: "Noise", Filter: filters.Noise, defaults: { noise: 40 } },
+  {
+    name: "blur",
+    label: "Blur",
+    Filter: filters.Blur,
+    defaults: { blur: 0.4 },
+  },
+  {
+    name: "noise",
+    label: "Noise",
+    Filter: filters.Noise,
+    defaults: { noise: 40 },
+  },
   {
     name: "pixelate",
     label: "Pixelate",
@@ -119,8 +129,8 @@ export interface UseCanvasReturn {
   api: CanvasAPI;
 }
 
-const DEFAULT_WIDTH = 800;
-const DEFAULT_HEIGHT = 600;
+export const DEFAULT_CANVAS_WIDTH = 800;
+export const DEFAULT_CANVAS_HEIGHT = 600;
 const DEFAULT_BG_COLOR = "#ffffff";
 const ZOOM_STEP = 0.15;
 const MAX_ZOOM = 5;
@@ -135,8 +145,8 @@ const LAYER_TYPE_LABELS: Record<LayerType, string> = {
 
 export function useCanvas(options: UseCanvasOptions = {}): UseCanvasReturn {
   const {
-    width = DEFAULT_WIDTH,
-    height = DEFAULT_HEIGHT,
+    width = DEFAULT_CANVAS_WIDTH,
+    height = DEFAULT_CANVAS_HEIGHT,
     backgroundColor = DEFAULT_BG_COLOR,
   } = options;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

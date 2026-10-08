@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarSeparator,
+  SidebarInset,
 } from "@/components/ui/sidebar";
 import {
   CropIcon,
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 import Layers from "./layers";
 import FiltersMenu from "./filters";
+import { SidebarMenuItemWithExpansion } from "../ui/sidebarMenuItemWithExpantion";
 
 const Options: { icon: LucideIcon; title: string }[] = [
   { icon: CropIcon, title: "Crop/Resize" },
@@ -36,15 +38,18 @@ const SideBar = () => {
 
   return (
     <ShadSideBar
-      variant='floating'
-      className='h-[calc(100svh-3.5rem)] top-[3.5rem]'
+      variant='sidebar'
+      className='h-[calc(100svh-3.5rem)] top-[3.5rem] relative'
     >
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {Options.map((option, index) => (
-                <SidebarMenuItem key={index}>
+                <SidebarMenuItemWithExpansion
+                  contentInside={<div>lklkml</div>}
+                  key={index}
+                >
                   <SidebarMenuButton
                     onClick={
                       option.title === "Filters/Effects"
@@ -55,7 +60,7 @@ const SideBar = () => {
                     {<option.icon />}
                     <span>{option.title}</span>
                   </SidebarMenuButton>
-                </SidebarMenuItem>
+                </SidebarMenuItemWithExpansion>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
