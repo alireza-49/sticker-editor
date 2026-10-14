@@ -24,6 +24,13 @@ export type ImportedSvgType = {
 
 export type ImportedFileType = ImportedImageType | ImportedSvgType;
 
+export type StoredImageType = {
+  id: string;
+  name: string;
+  src: string;
+  type: "base64" | "url";
+};
+
 export type StateType = {
   api: CanvasAPI | null;
   layers: Layer[];
@@ -33,10 +40,14 @@ export type StateType = {
   canUndo: boolean;
   canRedo: boolean;
   imports: ImportedFileType[];
+  images: StoredImageType[];
   setApi: (api: CanvasAPI | null) => void;
   setLayers: (layers: Layer[]) => void;
   setActiveLayerId: (id: string | null) => void;
   setHistory: (history: string[], historyIndex: number) => void;
   importFile: (file: ImportedFileType) => void;
   removeFile: (id: string) => void;
+  addImage: (image: StoredImageType) => void;
+  removeImage: (id: string) => void;
+  loadImages: () => void;
 };

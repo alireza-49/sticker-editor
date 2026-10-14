@@ -1,5 +1,7 @@
 import React, { useId, useState, type ReactNode } from "react";
 import { cn } from "cn";
+import { Button } from "./button";
+import { ArrowLeft } from "lucide-react";
 
 export interface SidebarMenuItemWithExpansionProps extends React.ComponentProps<"li"> {
   contentInside: ((props: { close: () => void }) => ReactNode) | ReactNode;
@@ -66,13 +68,14 @@ export function SidebarMenuItemWithExpansion({
       >
         <div className='flex h-full w-full flex-col p-4'>
           <div className='mb-3 flex items-center justify-between border-b border-zinc-800 pb-2'>
-            <button
-              type='button'
+            <Button
+              variant={"secondary"}
               onClick={handleClose}
-              className='inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-white'
+              // className='inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800 hover:text-white'
             >
-              ← Back
-            </button>
+              <ArrowLeft />
+              Back
+            </Button>
             {title && (
               <span className='text-xs font-semibold text-zinc-300'>
                 {title}
